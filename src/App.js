@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const tempMovieData = [
   {
@@ -50,9 +50,17 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const REACT_APP_OMBD_API_KEY = process.env.REACT_APP_OMBD_API_KEY;
+
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
+
+  useEffect(() => {
+    fetch(
+      `http://www.omdbapi.com/?apikey=${REACT_APP_OMBD_API_KEY}&s=dune`
+    ).then((res) => res.json().then((data) => setMovies(data.Search)));
+  }, []);
 
   return (
     <>
