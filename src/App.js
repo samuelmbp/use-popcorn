@@ -55,11 +55,21 @@ const REACT_APP_OMBD_API_KEY = process.env.REACT_APP_OMBD_API_KEY;
 export default function App() {
   const [movies, setMovies] = useState(tempMovieData);
   const [watched, setWatched] = useState(tempWatchedData);
+  const [isLoading, setIsLoading] = useState(false);
+  const query = "dune";
 
   useEffect(() => {
-    fetch(
-      `http://www.omdbapi.com/?apikey=${REACT_APP_OMBD_API_KEY}&s=dune`
-    ).then((res) => res.json().then((data) => setMovies(data.Search)));
+    setIsLoading(true);
+    const fetchMovies = async () => {
+      const res = await fetch(
+        `http://www.omdbapi.com/?apikey=${REACT_APP_OMBD_API_KEY}&s=${query}`
+      );
+      const data = await res.json();
+      setMovies(data.Search);
+      setIsLoading(false);
+    };
+
+    fetchMovies();
   }, []);
 
   return (
@@ -69,9 +79,7 @@ export default function App() {
         <NumResults movies={movies} />
       </Navbar>
       <Main>
-        <Box>
-          <MovieList movies={movies} />
-        </Box>
+        <Box>{isLoading ? <Loader /> : <MovieList movies={movies} />}</Box>
         <Box>
           <WatchedMovieSummary watched={watched} />
           <WatchedMovieList watched={watched} />
@@ -80,6 +88,10 @@ export default function App() {
     </>
   );
 }
+
+const Loader = () => {
+  return <p className="loader">Loading...</p>;
+};
 
 const Navbar = ({ children }) => {
   return (
