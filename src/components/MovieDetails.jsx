@@ -47,6 +47,11 @@ export const MovieDetails = ({
     getMovieDetails();
   }, [selectedId]);
 
+  useEffect(() => {
+    if (!title) return;
+    document.title = `Movie | ${title}`;
+  }, [title]);
+
   const handleAdd = () => {
     const newWatchedMovie = {
       imdbID: selectedId,

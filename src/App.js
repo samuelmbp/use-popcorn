@@ -12,7 +12,7 @@ import { WatchedMovieSummary } from "./components/WatchedMovieSummary";
 import { WatchedMovieList } from "./components/WatchedMovieList";
 import { REACT_APP_OMBD_API_KEY } from "./service/api-omdb";
 
-export default function App() {
+const App = () => {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState("dune");
   const [watched, setWatched] = useState([]);
@@ -102,4 +102,6 @@ export default function App() {
       </Main>
     </>
   );
-}
+};
+
+export default App;

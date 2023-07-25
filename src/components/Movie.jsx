@@ -1,12 +1,13 @@
 export const Movie = ({ movie, onSelectMovie }) => {
+  const { Poster: poster, Title: title, Year: year, imdbID } = movie;
   return (
-    <li onClick={() => onSelectMovie(movie.imdbID)}>
-      <img src={movie.Poster} alt={`${movie.Title} poster`} />
-      <h3>{movie.Title}</h3>
+    <li onClick={() => onSelectMovie(imdbID)}>
+      <img src={poster} alt={`${title} poster`} />
+      <h3>{title}</h3>
       <div>
         <p>
           <span>🗓</span>
-          <span>{movie.Year}</span>
+          <span>{year}</span>
         </p>
       </div>
     </li>
