@@ -80,8 +80,13 @@ body {
   gap: 0.8rem;
 }
 
-.logo span {
+/* .logo span {
   font-size: 3.2rem;
+} */
+
+.logo-img {
+  width: 48px;
+  height: 48px;
 }
 
 .logo h1 {

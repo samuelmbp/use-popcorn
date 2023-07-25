@@ -3,12 +3,7 @@ import StarRating from "./StarRating";
 import { Loader } from "./Loader";
 import { REACT_APP_OMBD_API_KEY } from "../service/api-omdb";
 
-export const MovieDetails = ({
-  selectedId,
-  onCloseMovie,
-  onAddWatched,
-  watched,
-}) => {
+export const MovieDetails = ({selectedId, onCloseMovie, onAddWatched, watched}) => {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
@@ -30,6 +25,21 @@ export const MovieDetails = ({
     Director: director,
     Genre: genre,
   } = movie;
+
+  const handleAdd = () => {
+    const newWatchedMovie = {
+      imdbID: selectedId,
+      title,
+      year,
+      poster,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(" ").at(0)),
+      userRating,
+    };
+
+    onAddWatched(newWatchedMovie);
+    onCloseMovie();
+  };
 
   useEffect(() => {
     const getMovieDetails = async () => {
@@ -54,20 +64,17 @@ export const MovieDetails = ({
     };
   }, [title]);
 
-  const handleAdd = () => {
-    const newWatchedMovie = {
-      imdbID: selectedId,
-      title,
-      year,
-      poster,
-      imdbRating: Number(imdbRating),
-      runtime: Number(runtime.split(" ").at(0)),
-      userRating,
+  useEffect(() => {
+    const callback = (e) => {
+      if (e.code === "Escape") onCloseMovie();
     };
 
-    onAddWatched(newWatchedMovie);
-    onCloseMovie();
-  };
+    document.addEventListener("keydown", callback);
+
+    return () => {
+      document.removeEventListener("keydown", callback);
+    };
+  }, [onCloseMovie]);
 
   return (
     <div className="details">
