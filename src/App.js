@@ -14,7 +14,7 @@ import { REACT_APP_OMBD_API_KEY } from "./service/api-omdb";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState("dune");
+  const [query, setQuery] = useState("");
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -68,6 +68,8 @@ const App = () => {
       setError("");
       return;
     }
+
+    handleCloseMovie();
     fetchMovies();
 
     return () => {
