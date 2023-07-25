@@ -31,8 +31,6 @@ export const MovieDetails = ({
     Genre: genre,
   } = movie;
 
-  console.log(title, year);
-
   useEffect(() => {
     const getMovieDetails = async () => {
       setIsLoading(true);
