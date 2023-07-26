@@ -15,7 +15,9 @@ import { REACT_APP_OMBD_API_KEY } from "./service/api-omdb";
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState("");
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(() => {
+    return JSON.parse(localStorage.getItem("watched"));
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
@@ -35,6 +37,10 @@ const App = () => {
   const handleDeleteWatched = (id) => {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   };
+
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify(watched));
+  }, [watched]);
 
   useEffect(() => {
     const controller = new AbortController();
