@@ -3,7 +3,12 @@ import StarRating from "./StarRating";
 import { Loader } from "./Loader";
 import { REACT_APP_OMBD_API_KEY } from "../service/api-omdb";
 
-export const MovieDetails = ({selectedId, onCloseMovie, onAddWatched, watched}) => {
+export const MovieDetails = ({
+  selectedId,
+  onCloseMovie,
+  onAddWatched,
+  watched,
+}) => {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
