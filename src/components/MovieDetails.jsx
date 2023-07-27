@@ -65,7 +65,7 @@ export const MovieDetails = ({
     document.title = `Movie | ${title}`;
 
     return () => {
-      document.title = "usePopcorn";
+      document.title = "NoteFlix";
     };
   }, [title]);
 
